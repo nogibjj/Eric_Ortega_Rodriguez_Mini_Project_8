@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -12,9 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      WORKING_DIR: add #change this to the rust project name you are developing.
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -25,24 +22,66 @@ jobs:
         toolchain: stable
         override: true
 
-    - name: Check
-      run: make check
-      working-directory: ${{ env.WORKING_DIR }}
+    - name: Build the project
+      run: cargo build --release  # This builds the Rust project in release mode
 
-    - name: Format
-      run: make format
-      working-directory: ${{ env.WORKING_DIR }}
+    - name: Prepare binary artifact
+      run: mkdir -p data && cp target/release/Eric_Ortega_Rodriguez_Mini_Project_8 ./data/  # Copies the binary to a folder for artifact upload
 
-    - name: Test
-      run: make test
-      working-directory: ${{ env.WORKING_DIR }}
-
-    - name: Release
-      run: make release
-      working-directory: ${{ env.WORKING_DIR }}
-
-    - name: Upload Binary Artifact
-      uses: actions/upload-artifact@v4 #v3 is scheduled for deprecation Nov 30 2024 check marketplace
+    - name: Upload binary artifact to GitHub
+      uses: actions/upload-artifact@v4  # This action uploads the artifact
       with:
-        name: release-binary
-        path: ${{ env.WORKING_DIR }}/target/release/minigrep
+        name: Eric_Ortega_Rodriguez_Mini_Project_8  # Artifact name
+        path: data/Eric_Ortega_Rodriguez_Mini_Project_8  # Path to the binary
+
+
+
+
+# name: CI
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     env:
+#       WORKING_DIR: add #change this to the rust project name you are developing.
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v3
+
+#     - name: Install Rust
+#       uses: actions-rs/toolchain@v1
+#       with:
+#         toolchain: stable
+#         override: true
+
+#     - name: Check
+#       run: make check
+#       working-directory: ${{ env.WORKING_DIR }}
+
+#     - name: Format
+#       run: make format
+#       working-directory: ${{ env.WORKING_DIR }}
+
+#     - name: Test
+#       run: make test
+#       working-directory: ${{ env.WORKING_DIR }}
+
+#     - name: Release
+#       run: make release
+#       working-directory: ${{ env.WORKING_DIR }}
+
+#     - name: Upload Binary Artifact
+#       uses: actions/upload-artifact@v4 #v3 is scheduled for deprecation Nov 30 2024 check marketplace
+#       with:
+#         name: release-binary
+#         path: ${{ env.WORKING_DIR }}/target/release/minigrep
