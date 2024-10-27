@@ -25,7 +25,7 @@ fn average_sugars_by_calorie_range(file_path: &str) -> Result<(), Box<dyn Error>
     let ranges = vec![(0.0, 50.0), (50.0, 100.0), (100.0, 150.0), (150.0, 200.0), (200.0, 250.0), (250.0, 300.0), (300.0, f64::INFINITY)];
     let labels = vec!["0-50 calories", "50-100 calories", "100-150 calories", "150-200 calories", "200-250 calories", "250-300 calories", "Over 300 calories"];
 
-    // Calculate average sugars for each calorie range
+    // Calculate average sugars for each of our calorie ranges 
     for (i, (low, high)) in ranges.iter().enumerate() {
         let filtered_sugars: Vec<f64> = cereals
             .iter()
@@ -36,7 +36,7 @@ fn average_sugars_by_calorie_range(file_path: &str) -> Result<(), Box<dyn Error>
             .map(|c| c.sugars.unwrap())
             .collect();
 
-        // Calculate the average sugar for the filtered entries
+        // Calculating average sugar for the filtered cereals
         if !filtered_sugars.is_empty() {
             let sugar_array = Array1::from(filtered_sugars);
             let avg_sugar = sugar_array.mean().unwrap_or(0.0);
