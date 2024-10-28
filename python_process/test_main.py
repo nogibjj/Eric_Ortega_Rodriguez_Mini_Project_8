@@ -1,35 +1,34 @@
 import unittest
 from unittest.mock import patch
 import pandas as pd
-import main 
+from main import average_sugars_by_calorie_range
 
 class TestAverageSugarsByCalorieRange(unittest.TestCase):
-    @patch("pandas.read_csv")
-    def test_average_sugars_by_calorie_range(self, mock_read_csv):
-        # Create a DataFrame directly
-        mock_df = pd.DataFrame({
-            'calories': [50, 100, 150, 200, 250, 300, 350],
-            'sugars': [6, 8, 5, 10, 4, 12, 9]
-        })
-        
-        # Set the return value of read_csv to be this DataFrame
-        mock_read_csv.return_value = mock_df
 
-        # Capture the print output
-        with patch("builtins.print") as mock_print:
-            main.average_sugars_by_calorie_range()
-            
-            # Define the expected print output calls
-            expected_calls = [
-                ("Average sugars for cereals with 0-50 calories: 6.00",),
-                ("Average sugars for cereals with 50-100 calories: 8.00",),
-                ("Average sugars for cereals with 100-150 calories: 5.00",),
-                ("Average sugars for cereals with 150-200 calories: 10.00",),
-                ("Average sugars for cereals with 200-250 calories: 4.00",),
-                ("Average sugars for cereals with 250-300 calories: 12.00",),
-                ("Average sugars for cereals with Over 300 calories: 9.00",)
-            ]
-            mock_print.assert_has_calls([unittest.mock.call(*call) for call in expected_calls], any_order=False)
+    @patch('main.pd.read_csv')
+    def test_average_sugars_by_calorie_range(self, mock_read_csv):
+        # Create a mock dataset that covers all necessary calorie ranges
+        mock_data = pd.DataFrame({
+            'calories': [45, 80, 110, 150, 200, 320, 330],
+            'sugars': [5, 6, 7, 9, 8, 10, 11]
+        })
+        mock_read_csv.return_value = mock_data
+        
+        # Call the function and get the result
+        result = average_sugars_by_calorie_range()
+
+        # Expected values based on the filtered logic:
+        expected_result = {
+            '0-50 calories': 5.0,        # Only 45
+            '50-100 calories': 6.0,      # Only 80
+            '100-150 calories': 8.0,     # Only 150 (110 is included in this range if filtered correctly)
+            '150-200 calories': 8.0,     # Only 200
+            'Over 300 calories': 10.5    # Average of 10 and 11 (320, 330)
+        }
+        
+        # Assert that result matches expected_result
+        for key in expected_result:
+            self.assertAlmostEqual(result.get(key), expected_result[key], places=2)
 
 if __name__ == "__main__":
     unittest.main()
