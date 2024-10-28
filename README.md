@@ -1,4 +1,4 @@
-# Mini Project: Rewrite a Python Script in Rust
+# Mini Project 8: Rewrite a Python Script in Rust
 
 ## Eric Ortega Rodriguez 
 
