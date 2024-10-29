@@ -1,12 +1,13 @@
 import pandas as pd
 import time
-import psutil
+import psutil  # pylint: disable=import-error
 import os
 
-def average_sugars_by_calorie_range(file_path: str):
-    # Load the CSV
-    df = pd.read_csv("/Users/ericortega/Eric_Ortega_Rodriguez_Mini_Project_8/data/cereal.csv")
+# Load the CSV file with the absolute path
+file_path = "/Users/ericortega/Eric_Ortega_Rodriguez_Mini_Project_8/data/cereal.csv"
+df = pd.read_csv(file_path)  # Load the CSV once at the start
 
+def average_sugars_by_calorie_range(df: pd.DataFrame):
     # Define calorie ranges and corresponding labels
     ranges = [
         (0.0, 50.0),
@@ -16,11 +17,8 @@ def average_sugars_by_calorie_range(file_path: str):
         (300.0, float('inf'))
     ]
     range_labels = [
-        "0-50 calories",
-        "50-100 calories",
-        "100-150 calories",
-        "150-200 calories",
-        "Over 300 calories"
+        "0-50 calories", "50-100 calories", "100-150 calories",
+        "150-200 calories", "Over 300 calories"
     ]
 
     # Prepare lists to accumulate sugar totals and counts for each range
@@ -49,12 +47,9 @@ def main():
     start_time = time.time()
     process = psutil.Process(os.getpid())
     initial_memory = process.memory_info().rss / 1024  # Memory in KB
-
-    # Specify the path to the CSV file
-    file_path = "data/cereal.csv"
     
     # Calculate average sugars by calorie range
-    average_sugars = average_sugars_by_calorie_range(file_path)
+    average_sugars = average_sugars_by_calorie_range(df)
 
     # Measure memory usage after execution
     final_memory = process.memory_info().rss / 1024  # Memory in KB
@@ -66,7 +61,7 @@ def main():
 
     # Print execution time and memory usage
     end_time = time.time()
-    print(f"\nExecution Time: {end_time - start_time:.2f} seconds")
+    print(f"\nExecution Time: {end_time - start_time:.4f} seconds")
     print(f"Memory Used: {memory_used:.2f} KB")
 
 if __name__ == "__main__":
