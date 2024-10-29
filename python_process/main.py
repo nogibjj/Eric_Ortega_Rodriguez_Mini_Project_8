@@ -1,8 +1,7 @@
 import pandas as pd
 import time
-from memory_profiler import memory_usage
+import memory_profiler  
 
-import memory_profiler  # pylint: disable=import-error
 
 
 def average_sugars_by_calorie_range():
