@@ -4,7 +4,9 @@ use std::collections::HashMap;
 use csv::ReaderBuilder;
 use serde::Deserialize;
 use std::fs::File;
-use rss::memory_usage; // Import memory usage from RSS crate
+use procfs::process::Process;
+
+mod lib; // Ensure `lib.rs` is present in `src/`
 
 #[derive(Debug, Deserialize)]
 struct CerealRecord {
@@ -63,8 +65,9 @@ fn average_sugars_by_calorie_range(file_path: &str) -> Result<HashMap<String, f6
 fn main() -> Result<(), Box<dyn Error>> {
     let start = Instant::now();
 
-    // Measure memory usage before execution
-    let initial_memory = memory_usage()?; 
+    // Get initial memory usage
+    let pid = Process::myself()?;
+    let initial_memory = pid.stat()?.rss;
 
     // Specify the path to the CSV file
     let file_path = "data/cereal.csv";
@@ -72,9 +75,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     // Calculate average sugars by calorie range
     let average_sugars = average_sugars_by_calorie_range(file_path)?;
 
-    // Measure memory usage after execution
-    let final_memory = memory_usage()?;
-    let memory_used = final_memory - initial_memory;
+    // Get memory usage after execution
+    let final_memory = pid.stat()?.rss;
+    let memory_used = (final_memory - initial_memory) * 4; // Convert pages to KB on Linux
 
     // Display the results
     for (range, avg_sugar) in &average_sugars {
