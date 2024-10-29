@@ -6,7 +6,6 @@ use serde::Deserialize;
 use std::fs::File;
 use procfs::process::Process;
 
-mod lib; // Ensure `lib.rs` is present in `src/`
 
 #[derive(Debug, Deserialize)]
 struct CerealRecord {
