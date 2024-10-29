@@ -18,6 +18,8 @@ format:
 lint:
 	cargo clippy
 	pylint --disable=R,C --ignore-patterns=test_.*?py $(shell find . -name "*.py")
+	source /path/to/venv/bin/activate
+
 
 test:
 	cargo test
@@ -29,6 +31,7 @@ release:
 install:
 	pip3 install --upgrade pip &&\
 		pip3 install -r requirements.txt
+
 
 
 	
