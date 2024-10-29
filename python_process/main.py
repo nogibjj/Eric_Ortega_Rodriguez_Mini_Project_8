@@ -4,13 +4,15 @@ import psutil  # pylint: disable=import-error
 import os
 
 # Load the CSV file with the absolute path
-file_path = "https://github.com/nogibjj/Eric_Ortega_Rodriguez_Mini_Project_8/raw/refs/heads/main/data/cereal.csv"
+file_path = "data/cereal.csv"
+
 
 # Check if the file exists
 if not os.path.exists(file_path):
     raise FileNotFoundError(f"The file {file_path} does not exist.")
 
 df = pd.read_csv(file_path)  # Load the CSV once at the start
+
 
 def average_sugars_by_calorie_range(data_frame: pd.DataFrame):
     # Define calorie ranges and corresponding labels
@@ -19,11 +21,14 @@ def average_sugars_by_calorie_range(data_frame: pd.DataFrame):
         (50.0, 100.0),
         (100.0, 150.0),
         (150.0, 200.0),
-        (300.0, float('inf'))
+        (300.0, float("inf")),
     ]
     range_labels = [
-        "0-50 calories", "50-100 calories", "100-150 calories",
-        "150-200 calories", "Over 300 calories"
+        "0-50 calories",
+        "50-100 calories",
+        "100-150 calories",
+        "150-200 calories",
+        "Over 300 calories",
     ]
 
     # Prepare lists to accumulate sugar totals and counts for each range
@@ -32,7 +37,7 @@ def average_sugars_by_calorie_range(data_frame: pd.DataFrame):
 
     # Process each record in the DataFrame
     for _, row in data_frame.iterrows():
-        calories, sugars = row['calories'], row['sugars']
+        calories, sugars = row["calories"], row["sugars"]
         for i, (low, high) in enumerate(ranges):
             if low < calories <= high:
                 range_sugar_totals[i] += sugars
@@ -47,12 +52,13 @@ def average_sugars_by_calorie_range(data_frame: pd.DataFrame):
 
     return average_sugars
 
+
 def main():
     # Start measuring time and initial memory usage
     start_time = time.time()
     process = psutil.Process(os.getpid())
     initial_memory = process.memory_info().rss / 1024  # Memory in KB
-    
+
     # Calculate average sugars by calorie range
     average_sugars = average_sugars_by_calorie_range(df)
 
@@ -68,6 +74,7 @@ def main():
     end_time = time.time()
     print(f"\nExecution Time: {end_time - start_time:.4f} seconds")
     print(f"Memory Used: {memory_used:.2f} KB")
+
 
 if __name__ == "__main__":
     main()
