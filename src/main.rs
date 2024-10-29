@@ -80,7 +80,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     // Display the results
     for (range, avg_sugar) in &average_sugars {
-        println!("Average sugars for cereals with {}: {:.2}", range, avg_sugar);
+        println!("Average sugars for cereals with {}: {:.7}", range, avg_sugar);
     }
 
     // Print execution time and memory usage

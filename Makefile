@@ -12,7 +12,7 @@ build:
 
 format:
 	cargo fmt
-	black $(find . -name "*.py")
+	black python_process/*.py 
 
 
 lint:

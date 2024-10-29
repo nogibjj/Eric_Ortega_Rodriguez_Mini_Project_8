@@ -5,9 +5,9 @@ import os
 
 # Load the CSV file with the absolute path
 file_path = "/Users/ericortega/Eric_Ortega_Rodriguez_Mini_Project_8/data/cereal.csv"
-data = pd.read_csv(file_path)  # Load the CSV once at the start
+df = pd.read_csv(file_path)  # Load the CSV once at the start
 
-def average_sugars_by_calorie_range(data_frame: pd.DataFrame):
+def average_sugars_by_calorie_range(df: pd.DataFrame):
     # Define calorie ranges and corresponding labels
     ranges = [
         (0.0, 50.0),
@@ -26,7 +26,7 @@ def average_sugars_by_calorie_range(data_frame: pd.DataFrame):
     range_counts = [0] * len(range_labels)
 
     # Process each record in the DataFrame
-    for _, row in data_frame.iterrows():
+    for _, row in df.iterrows():
         calories, sugars = row['calories'], row['sugars']
         for i, (low, high) in enumerate(ranges):
             if low < calories <= high:
@@ -49,7 +49,7 @@ def main():
     initial_memory = process.memory_info().rss / 1024  # Memory in KB
     
     # Calculate average sugars by calorie range
-    average_sugars = average_sugars_by_calorie_range(data)
+    average_sugars = average_sugars_by_calorie_range(df)
 
     # Measure memory usage after execution
     final_memory = process.memory_info().rss / 1024  # Memory in KB
@@ -61,8 +61,8 @@ def main():
 
     # Print execution time and memory usage
     end_time = time.time()
-    print(f"\nExecution Time: {end_time - start_time:.2f} seconds")
-    print(f"Memory Used: {memory_used:.2f} KB")
+    print(f"\nExecution Time: {end_time - start_time:.7f} seconds")
+    print(f"Memory Used: {memory_used:.7f} KB")
 
 if __name__ == "__main__":
     main()
