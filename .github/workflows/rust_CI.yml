@@ -25,14 +25,14 @@ jobs:
     - name: Build the project
       run: cargo build --release  # This builds the Rust project in release mode
 
-    - name: Prepare binary artifact
-      run: mkdir -p data && cp target/release/Eric_Ortega_Rodriguez_Mini_Project_8 ./data/  # Copies the binary to a folder for artifact upload
+    # - name: Prepare binary artifact
+    #   run: mkdir -p data && cp target/release/Eric_Ortega_Rodriguez_Mini_Project_8 ./data/  # Copies the binary to a folder for artifact upload
 
-    - name: Upload binary artifact to GitHub
-      uses: actions/upload-artifact@v4  # This action uploads the artifact
-      with:
-        name: Eric_Ortega_Rodriguez_Mini_Project_8  # Artifact name
-        path: data/Eric_Ortega_Rodriguez_Mini_Project_8  # Path to the binary
+    # - name: Upload binary artifact to GitHub
+    #   uses: actions/upload-artifact@v4  # This action uploads the artifact
+    #   with:
+    #     name: Eric_Ortega_Rodriguez_Mini_Project_8  # Artifact name
+    #     path: data/Eric_Ortega_Rodriguez_Mini_Project_8  # Path to the binary
 
 
 
