@@ -18,7 +18,6 @@ format:
 lint:
 	cargo clippy
 	pylint --disable=R,C --ignore-patterns=test_.*?py $(shell find . -name "*.py")
-	source /path/to/venv/bin/activate
 
 
 test:
