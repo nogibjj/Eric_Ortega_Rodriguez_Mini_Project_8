@@ -17,7 +17,7 @@ format:
 
 lint:
 	cargo clippy
-	pylint --disable=R,C --ignore-patterns=test_.*?py *.py library/*.py
+	pylint --disable=R,C --ignore-patterns=test_.*?py $(shell find . -name "*.py")
 
 test:
 	cargo test
@@ -29,4 +29,6 @@ release:
 install:
 	pip3 install --upgrade pip &&\
 		pip3 install -r requirements.txt
+
+
 	
