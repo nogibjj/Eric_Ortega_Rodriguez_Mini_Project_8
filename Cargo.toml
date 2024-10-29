@@ -1,5 +1,5 @@
 [package]
-name = "Eric_Ortega_Rodriguez_Mini_Project_8"
+name = "eric_ortega_rodriguez_mini_project_8"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,3 +7,4 @@ edition = "2021"
 csv = "1.1"
 serde = { version = "1.0", features = ["derive"] }
 ndarray = "0.15"
+ndarray_stats = "0.6.0"
