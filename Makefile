@@ -12,8 +12,8 @@ build:
 
 format:
 	cargo fmt
-	black *.py
-	black library/*.py 
+	black $(find . -name "*.py")
+
 
 lint:
 	cargo clippy
