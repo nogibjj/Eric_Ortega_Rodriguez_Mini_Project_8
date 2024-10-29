@@ -22,7 +22,7 @@ lint:
 
 test:
 	cargo test
-	python -m pytest -vv --cov=main --cov=library test_*.py
+	python -m pytest -vv --cov=main --cov=python_process/test_*.py
 
 release:
 	cargo build --release
