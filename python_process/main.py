@@ -4,7 +4,7 @@ import psutil  # pylint: disable=import-error
 import os
 
 # Load the CSV file with the absolute path
-file_path = "/Users/ericortega/Eric_Ortega_Rodriguez_Mini_Project_8/data/cereal.csv"
+file_path = "https://github.com/nogibjj/Eric_Ortega_Rodriguez_Mini_Project_8/raw/refs/heads/main/data/cereal.csv"
 
 # Check if the file exists
 if not os.path.exists(file_path):
