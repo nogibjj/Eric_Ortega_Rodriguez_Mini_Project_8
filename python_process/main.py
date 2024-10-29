@@ -5,9 +5,14 @@ import os
 
 # Load the CSV file with the absolute path
 file_path = "/Users/ericortega/Eric_Ortega_Rodriguez_Mini_Project_8/data/cereal.csv"
+
+# Check if the file exists
+if not os.path.exists(file_path):
+    raise FileNotFoundError(f"The file {file_path} does not exist.")
+
 df = pd.read_csv(file_path)  # Load the CSV once at the start
 
-def average_sugars_by_calorie_range(df: pd.DataFrame):
+def average_sugars_by_calorie_range(data_frame: pd.DataFrame):
     # Define calorie ranges and corresponding labels
     ranges = [
         (0.0, 50.0),
@@ -26,7 +31,7 @@ def average_sugars_by_calorie_range(df: pd.DataFrame):
     range_counts = [0] * len(range_labels)
 
     # Process each record in the DataFrame
-    for _, row in df.iterrows():
+    for _, row in data_frame.iterrows():
         calories, sugars = row['calories'], row['sugars']
         for i, (low, high) in enumerate(ranges):
             if low < calories <= high:
@@ -61,8 +66,8 @@ def main():
 
     # Print execution time and memory usage
     end_time = time.time()
-    print(f"\nExecution Time: {end_time - start_time:.7f} seconds")
-    print(f"Memory Used: {memory_used:.7f} KB")
+    print(f"\nExecution Time: {end_time - start_time:.4f} seconds")
+    print(f"Memory Used: {memory_used:.2f} KB")
 
 if __name__ == "__main__":
     main()
