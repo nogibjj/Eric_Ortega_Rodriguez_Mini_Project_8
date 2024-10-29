@@ -5,11 +5,12 @@ use csv::ReaderBuilder;
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
-pub struct CerealRecord {
-    pub calories: f64,
-    pub sugars: f64,
+struct CerealRecord {
+    calories: f64,
+    sugars: f64,
 }
 
+#[allow(dead_code)]
 pub fn average_sugars_by_calorie_range(file_path: &str) -> Result<HashMap<String, f64>, Box<dyn Error>> {
     let mut reader = ReaderBuilder::new().from_reader(File::open(file_path)?);
 
