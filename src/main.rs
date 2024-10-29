@@ -1,6 +1,5 @@
 use csv::ReaderBuilder;
 use ndarray::Array1;
-use ndarray_stats::QuantileExt;
 use serde::Deserialize;
 use std::error::Error;
 use std::f64;
