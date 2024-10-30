@@ -1,14 +1,15 @@
 import pandas as pd
 import time
 import psutil
-import os
 
-file_path = "/Users/ericortega/Eric_Ortega_Rodriguez_Mini_Project_8/python_process/cereal.csv"
+# Direct URL to the CSV file on GitHub
+file_url = "https://github.com/nogibjj/Eric_Ortega_Rodriguez_Mini_Project_8/raw/refs/heads/main/data/cereal.csv"
 
-if not os.path.exists(file_path):
-    raise FileNotFoundError(f"The file {file_path} does not exist.")
-
-df = pd.read_csv(file_path)
+try:
+    # Load CSV data directly from the URL
+    df = pd.read_csv(file_url)
+except Exception as e:
+    raise FileNotFoundError(f"Failed to load the file from {file_url}: {e}")
 
 required_columns = {"calories", "sugars"}
 if not required_columns.issubset(df.columns):
@@ -48,7 +49,7 @@ def average_sugars_by_calorie_range(data_frame: pd.DataFrame):
 
 def main():
     start_time = time.time()
-    process = psutil.Process(os.getpid())
+    process = psutil.Process()
     initial_memory = process.memory_info().rss / 1024 / 1024
 
     average_sugars = average_sugars_by_calorie_range(df)

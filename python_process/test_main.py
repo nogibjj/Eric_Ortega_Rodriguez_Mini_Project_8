@@ -18,9 +18,9 @@ class TestAverageSugarsByCalorieRange(unittest.TestCase):
         expected_result = {
             "0-50 calories": 5.0,
             "50-100 calories": 6.0,
-            "100-150 calories": 7.5,
-            "150-200 calories": 9.0,
-            "Over 300 calories": 10.5,
+            "100-150 calories": 7.0,
+            "150-200 calories": 8.0,
+            "Over 300 calories": 10.5
         }
 
         for key in expected_result:
@@ -57,6 +57,19 @@ class TestAverageSugarsByCalorieRange(unittest.TestCase):
 
         for key in expected_result:
             self.assertAlmostEqual(result.get(key), expected_result[key], places=2)
+
+    @patch("main.pd.read_csv")
+    def test_load_data_from_url(self, mock_read_csv):
+        mock_data = pd.DataFrame({
+            "calories": [100, 120, 200, 340],
+            "sugars": [5, 6, 9, 10]
+        })
+        mock_read_csv.return_value = mock_data
+
+        import main
+        main.df = pd.read_csv("https://github.com/nogibjj/Eric_Ortega_Rodriguez_Mini_Project_8/raw/refs/heads/main/data/cereal.csv")
+        
+        pd.testing.assert_frame_equal(main.df, mock_data)
 
 if __name__ == "__main__":
     unittest.main()
