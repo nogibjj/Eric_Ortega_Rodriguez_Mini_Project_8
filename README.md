@@ -55,7 +55,7 @@ To build and run the project, ensure you have the following installed:
 | Almond Delight            | R     | C      |        110 |         2 |     2 |      200 |      1 |    14   |        8 |        -1 |          25 |       3 |      1   |   0.75 |   34.4   |
 
 
-## Python vs. Rust 
+## Rust vs. Python 
 ![alt text](image.png)
 
 |                    | Python                        | Rust                        | Improvement (Rust vs. Python) |
