@@ -5,7 +5,10 @@
 
 ## Eric Ortega Rodriguez 
 
-![Cereal Data Project](image.png)
+<p align="center">
+  <img src="image.png" alt="Cereal Data Project" width="400"/>
+</p>
+
 
 ## Project Overview
 
