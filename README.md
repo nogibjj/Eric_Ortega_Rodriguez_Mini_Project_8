@@ -53,3 +53,13 @@ To build and run the project, ensure you have the following installed:
 | All-Bran                  | K     | C      |         70 |         4 |     1 |      260 |      9 |     7   |        5 |       320 |         25 |       3 |      1   |   0.33 |   59.4   |
 | All-Bran with Extra Fiber | K     | C      |         50 |         4 |     0 |      140 |     14 |     8   |        0 |       330 |         25 |       3 |      1   |   0.5  |   93.7   |
 | Almond Delight            | R     | C      |        110 |         2 |     2 |      200 |      1 |    14   |        8 |        -1 |          25 |       3 |      1   |   0.75 |   34.4   |
+
+
+## Python vs. Rust 
+![alt text](image.png)
+
+|                    | Python                        | Rust                        | Improvement (Rust vs. Python) |
+|--------------------|-------------------------------|-----------------------------|-------------------------------|
+| **Execution Time** | 0.0043 s                      | 50.8 ms                     | Rust faster by x 84.31        |
+| **Memory Usage**   | 140 KB                        | 1.196 MB                    | Rust lower by x 8.54          |
+

@@ -3,6 +3,7 @@ use std::error::Error;
 use std::fs::File;
 use csv::ReaderBuilder;
 use serde::Deserialize;
+use sysinfo::{System, SystemExt, ProcessExt, Pid};
 
 #[derive(Debug, Deserialize)]
 pub struct CerealRecord {
@@ -10,7 +11,6 @@ pub struct CerealRecord {
     pub sugars: f64,
 }
 
-/// Calculates the average sugar content for cereals within specific calorie ranges.
 pub fn average_sugars_by_calorie_range(file_path: &str) -> Result<HashMap<String, f64>, Box<dyn Error>> {
     let mut reader = ReaderBuilder::new().from_reader(File::open(file_path)?);
 
@@ -53,4 +53,14 @@ pub fn average_sugars_by_calorie_range(file_path: &str) -> Result<HashMap<String
         }
     }
     Ok(average_sugars)
+}
+
+pub fn get_memory_usage() -> u64 {
+    let mut system = System::new_all();
+    system.refresh_all();
+    if let Some(process) = system.process((std::process::id() as i32).into()) {
+        process.memory()
+    } else {
+        0
+    }
 }
