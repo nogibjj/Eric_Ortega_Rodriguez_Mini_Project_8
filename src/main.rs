@@ -4,8 +4,6 @@ use std::collections::HashMap;
 use csv::ReaderBuilder;
 use serde::Deserialize;
 use std::fs::File;
-use procfs::process::Process;
-
 
 #[derive(Debug, Deserialize)]
 struct CerealRecord {
@@ -16,7 +14,6 @@ struct CerealRecord {
 fn average_sugars_by_calorie_range(file_path: &str) -> Result<HashMap<String, f64>, Box<dyn Error>> {
     let mut reader = ReaderBuilder::new().from_reader(File::open(file_path)?);
 
-    // Define calorie ranges and corresponding labels
     let ranges = [
         (0.0, 50.0),
         (50.0, 100.0),
@@ -32,11 +29,9 @@ fn average_sugars_by_calorie_range(file_path: &str) -> Result<HashMap<String, f6
         "Over 300 calories",
     ];
 
-    // Prepare vectors to accumulate sugar totals and counts for each range
     let mut range_sugar_totals = vec![0.0; range_labels.len()];
     let mut range_counts = vec![0; range_labels.len()];
 
-    // Process each record in the CSV
     for result in reader.deserialize() {
         let record: CerealRecord = result?;
         for (i, &(low, high)) in ranges.iter().enumerate() {
@@ -48,7 +43,6 @@ fn average_sugars_by_calorie_range(file_path: &str) -> Result<HashMap<String, f6
         }
     }
 
-    // Calculate the average sugars for each calorie range
     let mut average_sugars = HashMap::new();
     for (i, label) in range_labels.iter().enumerate() {
         if range_counts[i] > 0 {
@@ -64,29 +58,15 @@ fn average_sugars_by_calorie_range(file_path: &str) -> Result<HashMap<String, f6
 fn main() -> Result<(), Box<dyn Error>> {
     let start = Instant::now();
 
-    // Get initial memory usage
-    let pid = Process::myself()?;
-    let initial_memory = pid.stat()?.rss;
-
-    // Specify the path to the CSV file
     let file_path = "data/cereal.csv";
-    
-    // Calculate average sugars by calorie range
     let average_sugars = average_sugars_by_calorie_range(file_path)?;
 
-    // Get memory usage after execution
-    let final_memory = pid.stat()?.rss;
-    let memory_used = (final_memory - initial_memory) * 4; // Convert pages to KB on Linux
-
-    // Display the results
     for (range, avg_sugar) in &average_sugars {
         println!("Average sugars for cereals with {}: {:.7}", range, avg_sugar);
     }
 
-    // Print execution time and memory usage
     let duration = start.elapsed();
     println!("\nExecution Time: {:?}", duration);
-    println!("Memory Used: {} KB", memory_used);
 
     Ok(())
 }

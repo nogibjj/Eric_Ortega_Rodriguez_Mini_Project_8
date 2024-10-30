@@ -13,4 +13,3 @@ csv = "1.1"
 serde = { version = "1.0", features = ["derive"] }
 ndarray = "0.15"
 rss = "0.4"  # Add the RSS crate for memory measurement
-procfs = "0.11" # Add procfs for memory usage
