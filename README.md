@@ -3,7 +3,6 @@
 [![Python CI](https://github.com/nogibjj/Eric_Ortega_Rodriguez_Mini_Project_8/actions/workflows/CI.yml/badge.svg)](https://github.com/nogibjj/Eric_Ortega_Rodriguez_Mini_Project_8/actions/workflows/CI.yml)
 # Mini Project 8: Rewrite a Python Script in Rust
 
-## Eric Ortega Rodriguez 
 
 
 <p align="center">
@@ -11,6 +10,8 @@
 </p>
 
 <p align="center"><b>Cereal Data Project</b></p>
+
+## Eric Ortega Rodriguez 
 
 ## Project Overview
 
